@@ -1,0 +1,27 @@
+---
+# Ansible playbook for a LEMP server.
+#
+# If this is being used within a Vagrant profile, you can update your server
+# by running `vagrant provision` again.
+#
+# @author Alexander Manichev (2014).
+#
+# @see http://www.ansibleworks.com/docs/bestpractices.html
+
+- hosts: lemp
+  gather_facts: true
+
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    - cederberg.bootstrap-debian
+    - kalos.debian-common
+    - f500.locale
+    - f500.bash
+    - f500.bashrc
+    - apt
+    - nginx
+    - php
+    - php_composer
+    - f500.mariadb55

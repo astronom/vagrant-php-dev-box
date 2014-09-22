@@ -1,0 +1,65 @@
+---
+configure_nginx: true
+
+# Nginx settings for nginx.conf
+nginx_http_params:
+  gzip:  "off"
+  gzip_types: "text/plain text/javascript text/xml application/json application/xml application/xml+rss application/x-javascript text/css"
+  client_max_body_size: "256M"
+
+# Vhosts list
+nginx_sites:
+  - server:
+      file_name: foo
+      listen: 80
+      server_name: localhost
+      acceess_log: "/var/log/nginx/foo.access.log main"
+      error_log: "/var/log/nginx/foo.error.log main"
+      root: /var/www/foo
+      location4:
+        name: /
+        try_files: "$uri $uri/ /@fallback"
+        index: index.php
+      location3:
+        name: "@fallback"
+        rewrite: "^(.*)$ /index.php last"
+      location2:
+        name: " ~ \\.php$ "
+        fastcgi_pass: "unix:/var/run/php5-fpm.sock"
+        fastcgi_index: index.php
+        fastcgi_param: "SCRIPT_FILENAME  $root_path/$fastcgi_script_name"
+        fastcgi_param:  "PATH_INFO $fastcgi_script_name"
+        include: "fastcgi_params"
+      location1:
+        name: /images/
+        try_files: "$uri $uri/ /index.html"
+
+php_version: "php55"
+php_package_list_additional:
+  - php5-gd
+
+mariadb_root_password: "vagrant"
+mariadb_base_dir: "/usr"
+mariadb_bind_address: "127.0.0.1"
+mariadb_charsets_dir: "/usr/share/mysql/charsets"
+mariadb_config: "/etc/mysql/my.cnf"
+mariadb_data_dir: "/var/lib/mysql"
+mariadb_install_db_bin: "/usr/bin/mysql_install_db"
+mariadb_log_bin: false
+mariadb_long_query_time: 10
+mariadb_mysql_errorlog: "/var/log/mysql/mysql.err"
+mariadb_mysqld_errorlog: "/var/log/mysql/mysqld.err"
+mariadb_mysqld_slowlog: "/var/log/mysql/mysqld.slow"
+mariadb_pid: "/var/run/mysqld/mysqld.pid"
+mariadb_port: 3306
+mariadb_query_cache_limit: 128K  # 128K
+mariadb_query_cache_size: 64M   # 64M
+mariadb_server_id: 1
+mariadb_share_dir: "/usr/share/mysql"
+mariadb_skip_charset_handshake: true
+mariadb_skip_networking: false
+mariadb_socket: "/var/run/mysqld/mysqld.sock"
+
+locale_generate:
+  - "en_US.UTF-8 UTF-8"
+  - "ru_RU.UTF-8 UTF-8"

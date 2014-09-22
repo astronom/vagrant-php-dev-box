@@ -1,0 +1,32 @@
+---
+# Include Vars for special php version
+#- include_vars: "{{ item }}"
+#  tags: php
+#  with_first_found:
+#    - "../vars/{{ php_version }}.yml"
+#    - "../vars/version.yml"
+
+# install additional package for Version-Update
+- name: Install additional Package for PHP update
+  tags: php
+  action: "{{ ansible_pkg_mgr }} state=installed name=python-software-properties "
+  when: php_version != 'none'
+
+- name: add gpg key
+  apt_key: url=http://www.dotdeb.org/dotdeb.gpg state=present
+  tags: php
+  when: php_version == 'php55'
+
+- name: add repo
+  apt_repository: repo='deb http://packages.dotdeb.org wheezy-php55 all' state=present
+  tags: php
+  when: php_version == 'php55'
+
+- name: add distr repo
+  tags: php
+  apt_repository: repo='deb-src http://packages.dotdeb.org wheezy-php55 all' state=present
+  when: php_version == 'php55'
+
+- name: apt update
+  tags: php
+  action: apt update_cache=yes

@@ -1,0 +1,15 @@
+---
+  - name: add gpg key
+    apt_key: url=http://www.dotdeb.org/dotdeb.gpg state=present
+    tags: dotdeb
+
+  - name: add repo
+    apt_repository: repo='deb http://packages.dotdeb.org {{ ansible_lsb.codename }} all' state=present
+    tags: dotdeb
+
+  - name: add distr repo
+    apt_repository: repo='deb-src http://packages.dotdeb.org {{ ansible_lsb.codename }} all' state=present
+    tags: dotdeb
+
+  - name: apt update
+    action: apt update_cache=yes
