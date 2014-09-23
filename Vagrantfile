@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
   # Provisioning configuration for Ansible.
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "provisioning/site.yml"
-    ansible.inventory_path = "provisioning/inventory"
+    ansible.inventory_path = "provisioning/vagrant/inventory"
     # Run commands as root.
     ansible.sudo = true
     ansible.raw_arguments = ['-v']
