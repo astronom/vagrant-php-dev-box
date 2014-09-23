@@ -16,16 +16,16 @@
   failed_when: nginx_already_installed.stderr.find('is not installed') != -1
   ignore_errors: yes
 
-- name: nginx | Adding Nginx repository (if nginx is not already installed)
-  apt_repository: repo="{{nginx_apt_repository}}" state=present update_cache=yes
-  when: nginx_already_installed|failed
-
 - name: nginx | Adding Nginx repository key (if nginx is not already installed)
   apt_key: url={{nginx_apt_key}} state=present
   when: nginx_already_installed|failed
 
+- name: nginx | Adding Nginx repository (if nginx is not already installed)
+  apt_repository: repo="{{nginx_apt_repository}}" state=present update_cache=yes
+  when: nginx_already_installed|failed
+
 - name: nginx | Installing Nginx Packages and restarting Nginx
-  apt: pkg={{item}} state=latest
+  apt: name={{item}} state=latest
   with_items: nginx_packages
   when: nginx_already_installed|failed
   notify: restart nginx
