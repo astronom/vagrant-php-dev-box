@@ -1,0 +1,36 @@
+---
+
+- name: install php5-fpm
+  apt: pkg=php5-fpm state=present
+
+- name: install php5
+  apt: pkg=php5 state=present
+
+- name: create necessary directories
+  file: "path={{ item }} state=directory owner=root group=root mode=0755"
+  with_items:
+    - /etc/php5/fpm/pool.d
+    - "{{ php_log_dir }}"
+
+- name: write fpm php.ini
+  template: src=php.ini.j2 dest=/etc/php5/fpm/php.ini owner=root group=root mode=0644
+  notify:
+    - restart php-fpm
+
+- name: write php-fpm.conf
+  template: src=php-fpm.conf.j2 dest=/etc/php5/fpm/php-fpm.conf owner=root group=root mode=0644
+  notify:
+    - restart php-fpm
+
+- name: remove log file
+  file: path=/var/log/php5-fpm.log state=absent
+
+
+- name: write php-fpm-pool.conf
+  template: "src=php-fpm-pool.conf.j2 dest='/etc/php5/fpm/pool.d/{{ item.name }}.conf' owner=root group=root mode=0644"
+  with_items: php_fpm_pools
+  notify:
+    - restart php-fpm
+
+- name: start php-fpm
+  service: name=php5-fpm enabled=yes state=started

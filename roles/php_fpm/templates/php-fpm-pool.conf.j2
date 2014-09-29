@@ -1,0 +1,120 @@
+[{{ item.name }}]
+
+{% if item.settings.prefix is defined %}
+prefix = {{ item.settings.prefix }}
+{% endif %}
+
+user = {{ item.settings.user }}
+group = {{ item.settings.group }}
+
+listen = {{ item.settings.listen }}
+
+{% if item.settings.listen_backlog is defined %}
+listen.backlog = {{ item.settings.listen_backlog }}
+{% endif %}
+{% if item.settings.listen_owner is defined %}
+listen.owner = {{ item.settings.listen_owner }}
+{% endif %}
+{% if item.settings.listen_group is defined %}
+listen.group = {{ item.settings.listen_group }}
+{% endif %}
+{% if item.settings.listen_mode is defined %}
+listen.mode = {{ item.settings.listen_mode }}
+{% endif %}
+
+pm = {{ item.settings.pm }}
+
+{% if item.settings.pm_max_children is defined %}
+pm.max_children = {{ item.settings.pm_max_children }}
+{% endif %}
+{% if item.settings.pm_start_servers is defined %}
+pm.start_servers = {{ item.settings.pm_start_servers }}
+{% endif %}
+{% if item.settings.pm_min_spare_servers is defined %}
+pm.min_spare_servers = {{ item.settings.pm_min_spare_servers }}
+{% endif %}
+{% if item.settings.pm_max_spare_servers is defined %}
+pm.max_spare_servers = {{ item.settings.pm_max_spare_servers }}
+{% endif %}
+{% if item.settings.pm_process_idle_timeout is defined %}
+pm.process_idle_timeout = {{ item.settings.pm_process_idle_timeout }}
+{% endif %}
+{% if item.settings.pm_max_requests is defined %}
+pm.max_requests = {{ item.settings.pm_max_requests }}
+{% endif %}
+{% if item.settings.pm_status_path is defined %}
+pm.status_path = {{ item.settings.pm_status_path }}
+{% endif %}
+
+{% if item.settings.ping_path is defined %}
+ping.path = {{ item.settings.ping_path }}
+{% endif %}
+{% if item.settings.ping_response is defined %}
+ping.response = {{ item.settings.ping_response }}
+{% endif %}
+
+{% if item.settings.access_log is defined %}
+access.log = {{ item.settings.access_log }}
+{% endif %}
+{% if item.settings.access_format is defined %}
+access.format = "{{ item.settings.access_format }}"
+{% endif %}
+
+{% if item.settings.slowlog is defined %}
+slowlog = {{ item.settings.slowlog }}
+{% endif %}
+{% if item.settings.request_slowlog_timeout is defined %}
+request_slowlog_timeout = {{ item.settings.request_slowlog_timeout }}
+{% endif %}
+{% if item.settings.request_terminate_timeout is defined %}
+request_terminate_timeout = {{ item.settings.request_terminate_timeout }}
+{% endif %}
+
+{% if item.settings.rlimit_files is defined %}
+rlimit_files = {{ item.settings.rlimit_files }}
+{% endif %}
+{% if item.settings.rlimit_core is defined %}
+rlimit_core = {{ item.settings.rlimit_core }}
+{% endif %}
+
+{% if item.settings.chroot is defined %}
+chroot = {{ item.settings.chroot }}
+{% endif %}
+{% if item.settings.chdir is defined %}
+chdir = {{ item.settings.chdir }}
+{% endif %}
+
+{% if item.settings.catch_workers_output is defined %}
+catch_workers_output = {{ item.settings.catch_workers_output }}
+{% endif %}
+
+{% if item.settings.security_limit_extensions is defined %}
+security.limit_extensions = {{ item.settings.security_limit_extensions }}
+{% endif %}
+
+{% if item.settings.environment is defined %}
+{% for key, value in item.settings.environment.iteritems() %}
+env[{{ key }}] = {{ value }}
+{% endfor %}
+{% endif %}
+
+{% if item.settings.php_value is defined %}
+{% for key, value in item.settings.php_value.iteritems() %}
+php_value[{{ key }}] = {{ value }}
+{% endfor %}
+{% endif %}
+{% if item.settings.php_flag is defined %}
+{% for key, value in item.settings.php_flag.iteritems() %}
+php_flag[{{ key }}] = {{ value }}
+{% endfor %}
+{% endif %}
+{% if item.settings.php_admin_value is defined %}
+{% for key, value in item.settings.php_admin_value.iteritems() %}
+php_admin_value[{{ key }}] = {{ value }}
+{% endfor %}
+{% endif %}
+{% if item.settings.php_admin_flag is defined %}
+{% for key, value in item.settings.php_admin_flag.iteritems() %}
+php_admin_flag[{{ key }}] = {{ value }}
+{% endfor %}
+{% endif %}

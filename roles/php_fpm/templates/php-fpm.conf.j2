@@ -1,0 +1,41 @@
+[global]
+
+daemonize = {{ php_fpm_daemonize }}
+pid = {{ php_fpm_run_dir }}/php5-fpm.pid
+error_log = {{ php_log_dir }}/php-fpm.log
+
+{% if php_fpm_syslog_facility is defined %}
+syslog.facility = {{ php_fpm_syslog_facility }}
+{% endif %}
+{% if php_fpm_syslog_ident is defined %}
+syslog.ident = {{ php_fpm_syslog_ident }}
+{% endif %}
+{% if php_fpm_log_level is defined %}
+log_level = {{ php_fpm_log_level }}
+{% endif %}
+{% if php_fpm_emergency_restart_threshold is defined %}
+emergency_restart_threshold = {{ php_fpm_emergency_restart_threshold }}
+{% endif %}
+{% if php_fpm_emergency_restart_interval is defined %}
+emergency_restart_interval = {{ php_fpm_emergency_restart_interval }}
+{% endif %}
+{% if php_fpm_process_control_timeout is defined %}
+process_control_timeout = {{ php_fpm_process_control_timeout }}
+{% endif %}
+{% if php_fpm_process_max is defined %}
+process.max = {{ php_fpm_process_max }}
+{% endif %}
+{% if php_fpm_rlimit_files is defined %}
+rlimit_files = {{ php_fpm_rlimit_files }}
+{% endif %}
+{% if php_fpm_rlimit_core is defined %}
+rlimit_core = {{ php_fpm_rlimit_core }}
+{% endif %}
+{% if php_fpm_events_mechanism is defined %}
+events.mechanism = {{ php_fpm_events_mechanism }}
+{% endif %}
+{% if php_fpm_systemd_interval is defined %}
+systemd_interval = {{ php_fpm_systemd_interval }}
+{% endif %}
+
+include=/etc/php5/fpm/pool.d/*.conf
