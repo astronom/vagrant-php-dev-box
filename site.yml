@@ -23,5 +23,6 @@
     - apt
     - nginx
     - php
+    - php_fpm
     - php_composer
     - f500.mariadb55
