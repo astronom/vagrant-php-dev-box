@@ -1,0 +1,4 @@
+project:
+    name: 'lemp'
+    ip: 192.168.33.10
+    memory: 512
