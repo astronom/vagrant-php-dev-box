@@ -22,6 +22,7 @@
     - f500.bashrc
     - apt
     - nginx
+    - memcached
     - php
     - php_fpm
     - php_composer
